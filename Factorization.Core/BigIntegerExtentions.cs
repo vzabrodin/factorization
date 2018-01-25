@@ -7,12 +7,12 @@ namespace Factorization.Core
     {
         public static BigInteger Sqtr(this BigInteger number) => (BigInteger) Math.Exp(BigInteger.Log(number) / 2);
 
-        public static bool TryQuadraticEquation(BigInteger a, BigInteger b, BigInteger c, out BigInteger x1, out BigInteger x2)
+        public static bool TrySolveQuadraticEquation(BigInteger a, BigInteger b, BigInteger c, out BigInteger x1, out BigInteger x2)
         {
             x1 = BigInteger.Zero;
             x2 = BigInteger.Zero;
 
-            BigInteger discriminant = b * b - 4 * 2 * c;
+            BigInteger discriminant = b * b - 4 * a * c;
             if (discriminant < 0)
                 return false;
 

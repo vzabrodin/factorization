@@ -9,11 +9,11 @@ namespace Factorization.ConsoleApplication
     {
         public static void Main()
         {
-            BigInteger number = BigInteger.Parse(System.Console.ReadLine() ?? throw new InvalidOperationException());
+            BigInteger number = BigInteger.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            FactorizationResult result = new FactorizationController().ProcessAdvanced(number);
+            FactorizationResult result = new FactorizationController().ProcessMulticore(number);
 
             stopwatch.Stop();
 

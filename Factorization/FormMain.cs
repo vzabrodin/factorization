@@ -16,7 +16,7 @@ namespace Factorization
         {
             Stopwatch t = Stopwatch.StartNew();
 
-            FactorizationResult result = factorizationController.ProcessAdvanced(BigInteger.Parse(textBox1.Text));
+            FactorizationResult result = factorizationController.ProcessMulticore(BigInteger.Parse(textBox1.Text));
 
             t.Stop();
             textBox2.Text = $"P = {result.P}\n" +
