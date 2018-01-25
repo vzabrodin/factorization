@@ -1,0 +1,12 @@
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\bin\Debug\Factorization.exe.config
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\bin\Debug\Factorization.exe
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\bin\Debug\Factorization.pdb
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.FormMain.resources
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.Properties.Resources.resources
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.csproj.GenerateResource.Cache
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.csproj.CoreCompileInputs.cache
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.exe
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.pdb
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\bin\Debug\Factorization.Core.dll
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\bin\Debug\Factorization.Core.pdb
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization\obj\Debug\Factorization.csprojResolveAssemblyReference.cache

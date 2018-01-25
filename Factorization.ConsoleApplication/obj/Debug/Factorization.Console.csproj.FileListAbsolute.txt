@@ -1,0 +1,9 @@
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\bin\Debug\Factorization.Console.exe.config
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\bin\Debug\Factorization.Console.exe
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\bin\Debug\Factorization.Console.pdb
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\obj\Debug\Factorization.Console.csprojResolveAssemblyReference.cache
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\obj\Debug\Factorization.Console.csproj.CoreCompileInputs.cache
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\obj\Debug\Factorization.Console.exe
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\obj\Debug\Factorization.Console.pdb
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\bin\Debug\Factorization.Core.dll
+C:\Users\Vitaliy\Documents\Visual Studio 2015\Projects\Factorization\Factorization.Console\bin\Debug\Factorization.Core.pdb
