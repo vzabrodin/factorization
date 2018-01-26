@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Numerics;
 using System.Windows.Forms;
@@ -12,11 +12,11 @@ namespace Factorization
 
         public FormMain() => InitializeComponent();
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             Stopwatch t = Stopwatch.StartNew();
 
-            FactorizationResult result = factorizationController.ProcessMulticore(BigInteger.Parse(textBox1.Text));
+            FactorizationResult result = await factorizationController.ProcessMulticoreAsync(BigInteger.Parse(textBox1.Text));
 
             t.Stop();
             textBox2.Text = $"P = {result.P}\n" +
