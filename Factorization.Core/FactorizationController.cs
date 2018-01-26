@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Factorization.Core
@@ -14,18 +15,23 @@ namespace Factorization.Core
 
         public FactorizationResult ProcessMulticore(BigInteger n)
         {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+
             BigInteger p = n.Sqtr();
             BigInteger q = p + 1;
 
             Task<FactorizationResult>[] tasks =
             {
-                Task.Run(() => Process(n, p, q, 1)),
-                Task.Run(() => Process(n, p / 2, q * 2, 2)),
-                Task.Run(() => Process(n, p / 3, q * 3, 3)),
-                Task.Run(() => Process(n, p / 5, q * 5, 5))
+                Task.Run(() => Process(n, p, q, 1), cancellationToken),
+                Task.Run(() => Process(n, p / 2, q * 2, 2), cancellationToken),
+                Task.Run(() => Process(n, p / 3, q * 3, 3), cancellationToken),
+                Task.Run(() => Process(n, p / 5, q * 5, 5), cancellationToken)
             };
 
             int taskIndex = Task.WaitAny(tasks);
+            cancellationTokenSource.Cancel();
+
             return tasks[taskIndex].Result;
         }
 
