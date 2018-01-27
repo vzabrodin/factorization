@@ -9,7 +9,6 @@ namespace Factorization.ConsoleApplication
     {
         public static void Main()
         {
-            //BigInteger number = BigInteger.Parse("9094783366608199825199"); // 90947833687 * 99999999977
             BigInteger number = BigInteger.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
             Stopwatch stopwatch = Stopwatch.StartNew();
