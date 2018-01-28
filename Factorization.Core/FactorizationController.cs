@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Linq;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,28 +8,26 @@ namespace Factorization.Core
 {
     public class FactorizationController
     {
-        public FactorizationResult Process(BigInteger n)
-        {
-            BigInteger p = n.Sqtr();
-            BigInteger q = p + 1;
-            return Process(n, p, q, 1);
-        }
+        private readonly int[] coefficients =
+            {1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
 
-        public FactorizationResult ProcessMulticore(BigInteger n)
+        public FactorizationResult ProcessMulticore(BigInteger n, int threadCount)
         {
+            if (threadCount <= 0)
+                throw new ArgumentException("Number of threads cannot be less or equal than 0");
+            if (threadCount > Environment.ProcessorCount)
+                throw new ArgumentException("Number of threads cannot be greater than number of processors");
+
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = cancellationTokenSource.Token;
 
             BigInteger p = n.Sqtr();
             BigInteger q = p + 1;
 
-            Task<FactorizationResult>[] tasks =
-            {
-                Task.Run(() => Process(n, p, q, 1), cancellationToken),
-                Task.Run(() => Process(n, p / 2, q * 2, 2), cancellationToken),
-                Task.Run(() => Process(n, p / 3, q * 3, 3), cancellationToken),
-                Task.Run(() => Process(n, p / 5, q * 5, 5), cancellationToken)
-            };
+            Task<FactorizationResult>[] tasks = coefficients
+                .Take(threadCount)
+                .Select(i => Task.Run(() => Process(n, p / i, q * i, i), cancellationToken))
+                .ToArray();
 
             int taskIndex = Task.WaitAny(tasks);
             cancellationTokenSource.Cancel();
@@ -35,9 +35,25 @@ namespace Factorization.Core
             return tasks[taskIndex].Result;
         }
 
-        public Task<FactorizationResult> ProcessAsync(BigInteger n) => Task.Run(() => Process(n));
+        public FactorizationResult ProcessMulticore(BigInteger n)
+            => ProcessMulticore(n, Environment.ProcessorCount);
 
-        public Task<FactorizationResult> ProcessMulticoreAsync(BigInteger n) => Task.Run(() => ProcessMulticore(n));
+        public Task<FactorizationResult> ProcessMulticoreAsync(BigInteger n)
+            => Task.Run(() => ProcessMulticore(n));
+
+        public Task<FactorizationResult> ProcessMulticoreAsync(BigInteger n, int threadCount)
+            => Task.Run(() => ProcessMulticore(n, threadCount));
+
+        public FactorizationResult Process(BigInteger n)
+        {
+            BigInteger p = n.Sqtr();
+            BigInteger q = p + 1;
+
+            return Process(n, p, q, 1);
+        }
+
+        public Task<FactorizationResult> ProcessAsync(BigInteger n)
+            => Task.Run(() => Process(n));
 
         private FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, int coefficient)
         {
@@ -62,7 +78,7 @@ namespace Factorization.Core
                     {
                         BigInteger i = x1 > 0 ? x1 : x2;
                         q += i;
-                        p -= i;
+                        p -= i * coefficient;
 
                         delta = n - p * q;
                     }
