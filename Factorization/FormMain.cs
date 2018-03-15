@@ -8,20 +8,27 @@ namespace Factorization
 {
     public partial class FormMain : Form
     {
-        private readonly FactorizationController factorizationController = new FactorizationController();
+        private readonly Stopwatch stopwatch = new Stopwatch();
+        private readonly FactorizationController controller = new FactorizationController();
 
         public FormMain() => InitializeComponent();
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void OnTimerTick(object sender, EventArgs eventArgs)
+            => StopwatchToolStripStatusBarLabel.Text = $"{stopwatch.Elapsed}";
+
+        private async void OnProcessButtonClick(object sender, EventArgs e)
         {
-            Stopwatch t = Stopwatch.StartNew();
+            Timer.Start();
+            stopwatch.Restart();
 
-            FactorizationResult result = await factorizationController.ProcessMulticoreAsync(BigInteger.Parse(textBox1.Text));
+            FactorizationResult result = await controller.ProcessAsync(BigInteger.Parse(textBox1.Text),
+                Environment.ProcessorCount);
 
-            t.Stop();
-            textBox2.Text = $"P = {result.P}\n" +
-                            $"Q = {result.Q}\n" +
-                            $"Время:{t.Elapsed}";
+            stopwatch.Stop();
+            Timer.Start();
+
+            ResultTextBox.Text = $"P: {result.P}{Environment.NewLine}" +
+                                 $"Q: {result.Q}{Environment.NewLine}";
         }
     }
 }

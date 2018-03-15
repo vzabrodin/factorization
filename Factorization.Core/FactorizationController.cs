@@ -8,55 +8,54 @@ namespace Factorization.Core
 {
     public class FactorizationController
     {
-        private readonly int[] coefficients =
+        protected readonly int[] Coefficients =
             {1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
 
-        public FactorizationResult ProcessMulticore(BigInteger n, int threadCount)
+        public FactorizationResult Process(BigInteger n, int threadCount = 1)
         {
             if (threadCount <= 0)
                 throw new ArgumentException("Number of threads cannot be less or equal than 0");
-            if (threadCount > Environment.ProcessorCount)
-                throw new ArgumentException("Number of threads cannot be greater than number of processors");
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = cancellationTokenSource.Token;
 
-            BigInteger p = n.Sqtr();
-            BigInteger q = p + 1;
+            GetPAndQ(n, out BigInteger p, out BigInteger q);
 
-            Task<FactorizationResult>[] tasks = coefficients
+            Task<FactorizationResult>[] tasks = Coefficients
                 .Take(threadCount)
-                .Select(i => Task.Run(() => Process(n, p / i, q * i, i), cancellationToken))
+                .Select(i => Task.Run(() => Process(n, p, q, i), cancellationToken))
                 .ToArray();
 
             int taskIndex = Task.WaitAny(tasks);
-            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Cancel(throwOnFirstException: true);
 
             return tasks[taskIndex].Result;
         }
 
-        public FactorizationResult ProcessMulticore(BigInteger n)
-            => ProcessMulticore(n, Environment.ProcessorCount);
+        public Task<FactorizationResult> ProcessAsync(BigInteger n, int threadCount = 1)
+            => Task.Run(() =>
+            {
+                try
+                {
+                    return Process(n, threadCount);
+                }
+                catch (OperationCanceledException)
+                {
+                    return null;
+                }
+            });
 
-        public Task<FactorizationResult> ProcessMulticoreAsync(BigInteger n)
-            => Task.Run(() => ProcessMulticore(n));
-
-        public Task<FactorizationResult> ProcessMulticoreAsync(BigInteger n, int threadCount)
-            => Task.Run(() => ProcessMulticore(n, threadCount));
-
-        public FactorizationResult Process(BigInteger n)
+        protected virtual void GetPAndQ(BigInteger n, out BigInteger p, out BigInteger q)
         {
-            BigInteger p = n.Sqtr();
-            BigInteger q = p + 1;
-
-            return Process(n, p, q, 1);
+            p = n.Sqtr();
+            q = p + 1;
         }
 
-        public Task<FactorizationResult> ProcessAsync(BigInteger n)
-            => Task.Run(() => Process(n));
-
-        private FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, int coefficient)
+        protected virtual FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, int coefficient)
         {
+            p = p / coefficient;
+            q = q * coefficient;
+
             BigInteger delta = n - p * q;
 
             while (true)
