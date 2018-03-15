@@ -7,7 +7,8 @@ namespace Factorization.Core
     {
         public static BigInteger Sqtr(this BigInteger number) => (BigInteger) Math.Exp(BigInteger.Log(number) / 2);
 
-        public static bool TrySolveQuadraticEquation(BigInteger a, BigInteger b, BigInteger c, out BigInteger x1, out BigInteger x2)
+        public static bool TrySolveQuadraticEquation(BigInteger a, BigInteger b, BigInteger c,
+            out BigInteger x1, out BigInteger x2)
         {
             x1 = BigInteger.Zero;
             x2 = BigInteger.Zero;
@@ -22,6 +23,32 @@ namespace Factorization.Core
             x2 = (-b + discriminantSqrt) / (2 * a);
 
             return true;
+        }
+
+        public static BigInteger Gcd(BigInteger a, BigInteger b)
+        {
+            return a > b ? GcdInternal(a, b) : GcdInternal(b, a);
+        }
+
+        private static BigInteger GcdInternal(BigInteger a, BigInteger b)
+        {
+            while (true)
+            {
+                while (a > b)
+                    a = a - b;
+
+                if (a == b)
+                    return a;
+
+                Exchange(ref a, ref b);
+            }
+        }
+
+        public static void Exchange(ref BigInteger a, ref BigInteger b)
+        {
+            a = a + b;
+            b = a - b;
+            a = a - b;
         }
     }
 }

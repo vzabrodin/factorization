@@ -13,7 +13,7 @@ namespace Factorization.ConsoleApplication
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            FactorizationResult result = new FactorizationController().ProcessMulticore(number);
+            FactorizationResult result = new GcdFactorizationController().Process(number, 8);
 
             stopwatch.Stop();
 
