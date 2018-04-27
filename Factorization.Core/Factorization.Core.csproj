@@ -15,7 +15,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="BigIntegerExtentions.cs" />
     <Compile Include="FactorizationController.cs" />
+    <Compile Include="BaseFactorizationController.cs" />
     <Compile Include="FactorizationResult.cs" />
     <Compile Include="GcdFactorizationController.cs" />
+    <Compile Include="IFactorizationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuadraticSieveFactorizationController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
