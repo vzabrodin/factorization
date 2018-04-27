@@ -25,9 +25,22 @@ namespace Factorization.Core
             return true;
         }
 
-        public static BigInteger Gcd(BigInteger a, BigInteger b)
+        public static BigInteger GreatestCommonDivisor(BigInteger a, BigInteger b)
         {
             return a > b ? GcdInternal(a, b) : GcdInternal(b, a);
+        }
+
+        public static void Exchange(ref BigInteger a, ref BigInteger b)
+        {
+            a = a + b;
+            b = a - b;
+            a = a - b;
+        }
+
+        public static bool IsFullSquare(this BigInteger number)
+        {
+            BigInteger sqrt = number.Sqtr();
+            return number == sqrt * sqrt;
         }
 
         private static BigInteger GcdInternal(BigInteger a, BigInteger b)
@@ -42,13 +55,6 @@ namespace Factorization.Core
 
                 Exchange(ref a, ref b);
             }
-        }
-
-        public static void Exchange(ref BigInteger a, ref BigInteger b)
-        {
-            a = a + b;
-            b = a - b;
-            a = a - b;
         }
     }
 }

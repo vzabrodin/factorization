@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Threading;
 
 namespace Factorization.Core
 {
@@ -10,8 +11,8 @@ namespace Factorization.Core
             q = n - p;
         }
 
-        // ReSharper disable once RedundantAssignment
-        protected override FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, int coefficient)
+        protected override FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, int coefficient,
+            CancellationToken cancellationToken)
         {
             p = p * coefficient;
             q = n - p;
@@ -19,7 +20,7 @@ namespace Factorization.Core
             BigInteger d;
             do
             {
-                d = BigIntegerExtentions.Gcd(p, q);
+                d = BigIntegerExtentions.GreatestCommonDivisor(p, q);
 
                 if (d > 1)
                     continue;
