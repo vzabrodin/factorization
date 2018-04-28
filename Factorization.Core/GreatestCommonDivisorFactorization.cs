@@ -1,9 +1,10 @@
 ﻿using System.Numerics;
 using System.Threading;
+using Factorization.Core.Extensions;
 
 namespace Factorization.Core
 {
-    public class GcdFactorizationController : FactorizationController
+    public class GreatestCommonDivisorFactorization : PevnevFactorization
     {
         protected override void GetPAndQ(BigInteger n, out BigInteger p, out BigInteger q)
         {

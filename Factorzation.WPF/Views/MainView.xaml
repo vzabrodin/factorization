@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Factorization.WPF.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:uiConverters="clr-namespace:Factorization.WPF.UIConverters"
+             xmlns:enums="clr-namespace:Factorization.Core.Enums;assembly=Factorization.Core"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
+	<UserControl.Resources>
+		<uiConverters:EnumToCollectionConverter x:Key="FactorizationAlgorithmTypeEnumToCollectionConverter"
+		                                        EnumType="{x:Type enums:FactorizationAlgorithmType}"
+		                                        IsSortByValue="True"/>
+	</UserControl.Resources>
+	<Grid Margin="8" IsSharedSizeScope="True">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
+		           Text="Number to factorize"/>
+		<ComboBox Margin="5" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding CachedNumbers}" Text="{Binding NumberString}"
+		          IsEditable="True"/>
+
+		<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
+		           Text="Algorithm"/>
+		<Grid Grid.Row="1" Grid.Column="1">
+			<ListBox Margin="8" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+			         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
+			         SelectedValue="{Binding SelectedAlgorithmType}">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel IsItemsHost="True"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+			</ListBox>
+		</Grid>
+
+		<Button Margin="8" Grid.Row="2" Grid.Column="1" Content="Factorize" Command="{Binding ProcessCommand}"/>
+
+		<Grid Grid.Row="3" Grid.Column="0" ColumnSpan="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Margin="8" Grid.Column="0" VerticalAlignment="Center" Text="Result"/>
+			<StackPanel Margin="8" Grid.Column="1" Orientation="Horizontal">
+				<TextBlock VerticalAlignment="Center" Text="{Binding Result.P}"/>
+				<TextBlock VerticalAlignment="Center" Text="; "/>
+				<TextBlock VerticalAlignment="Center" Text="{Binding Result.Q}"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

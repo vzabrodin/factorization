@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.Numerics;
 using Factorization.Core;
+using Factorization.Core.Interfaces;
 
 namespace Factorization.ConsoleApplication
 {
     public class Program
     {
-        private static readonly IFactorizationController Controller = new FactorizationController();
+        private static readonly IFactorizationController Controller = new PevnevFactorization();
 
         public static void Main()
         {

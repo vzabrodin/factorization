@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System.Threading.Tasks;
 
-namespace Factorization.Core
+namespace Factorization.Core.Interfaces
 {
     public interface IFactorizationController
     {
