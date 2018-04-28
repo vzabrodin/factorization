@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Numerics;
 using Factorization.Core;
 using Factorization.Core.Enums;
@@ -34,6 +35,7 @@ namespace Factorization.WPF.ViewModels
             CancelCommand = new DelegateCommand(OnCancelCommand);
 
             SelectedAlgorithmType = FactorizationAlgorithmType.QuadraticInequality;
+            SelectedProcessorCount = 1;
         }
 
         public DelegateCommand ProcessCommand
@@ -61,10 +63,10 @@ namespace Factorization.WPF.ViewModels
                         factorizationController = new QuadraticInequalityFactorization();
                         break;
                     case FactorizationAlgorithmType.GreatestCommonDivisor:
-                        factorizationController = new QuadraticInequalityFactorization();
+                        factorizationController = new GreatestCommonDivisorFactorization();
                         break;
                     case FactorizationAlgorithmType.QuadraticSieve:
-                        factorizationController = new QuadraticInequalityFactorization();
+                        factorizationController = new QuadraticSieveFactorization();
                         break;
                     case null:
                         factorizationController = null;
@@ -118,6 +120,7 @@ namespace Factorization.WPF.ViewModels
         }
 
         private bool OnCanProcessCommand() => !String.IsNullOrWhiteSpace(NumberString)
+                                              && NumberString.All(char.IsDigit)
                                               && SelectedAlgorithmType != null
                                               && SelectedProcessorCount != null
                                               && !IsRunning;
@@ -134,6 +137,7 @@ namespace Factorization.WPF.ViewModels
             Result = await factorizationController.ProcessAsync(BigInteger.Parse(NumberString),
                 SelectedProcessorCount.GetValueOrDefault());
 
+            stopwatch.Stop();
             TimeElapsed = stopwatch.Elapsed;
 
             IsRunning = false;

@@ -16,7 +16,7 @@ namespace Factorization.Core
             Cancel(); // Cancel all tasks before start new
 
             if (threadCount <= 0)
-                throw new ArgumentException("Number of threads cannot be less or equal than 0");
+                throw new ArgumentException("Number of threads cannot be less or equal than 0", nameof(threadCount));
 
             cancellationTokenSource = new CancellationTokenSource();
 

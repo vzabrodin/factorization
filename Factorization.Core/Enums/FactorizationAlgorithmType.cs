@@ -7,10 +7,10 @@ namespace Factorization.Core.Enums
         [Display(Description = "Quadratic inequality")]
         QuadraticInequality = 1,
 
-        [Display(Description = "Greatest common divisor ")]
+        [Display(Description = "Greatest common divisor")]
         GreatestCommonDivisor = 2,
 
-        [Display(Description = "Quadratic sieve ")]
+        [Display(Description = "Quadratic sieve")]
         QuadraticSieve = 3
     }
 }
