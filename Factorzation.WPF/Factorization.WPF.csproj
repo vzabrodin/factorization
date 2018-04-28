@@ -87,9 +87,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\Extensions\TextBoxExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="UIConverters\CollectionViewModel.cs" />
     <Compile Include="UIConverters\EnumToCollectionConverter.cs" />
+    <Compile Include="UIConverters\IntRangeToCollectionConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewNames.cs" />
     <Compile Include="Views\MainView.xaml.cs">

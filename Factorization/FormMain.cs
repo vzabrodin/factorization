@@ -9,7 +9,7 @@ namespace Factorization
     public partial class FormMain : Form
     {
         private readonly Stopwatch stopwatch = new Stopwatch();
-        private readonly PevnevFactorization controller = new PevnevFactorization();
+        private readonly QuadraticInequalityFactorization controller = new QuadraticInequalityFactorization();
 
         public FormMain() => InitializeComponent();
 

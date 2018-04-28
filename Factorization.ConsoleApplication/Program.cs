@@ -8,7 +8,7 @@ namespace Factorization.ConsoleApplication
 {
     public class Program
     {
-        private static readonly IFactorizationController Controller = new PevnevFactorization();
+        private static readonly IFactorizationController Controller = new QuadraticInequalityFactorization();
 
         public static void Main()
         {
