@@ -1,9 +1,10 @@
 ﻿using System.Numerics;
 using System.Threading;
+using Factorization.Core.Extensions;
 
 namespace Factorization.Core
 {
-    public class QuadraticSieveFactorizationController : BaseFactorizationController
+    public class QuadraticSieveFactorization : BaseFactorization
     {
         protected override FactorizationResult Process(BigInteger n, int threadNumber, int threadCount,
             CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Factorization.Core
+namespace Factorization.Core.Extensions
 {
     public static class BigIntegerExtentions
     {

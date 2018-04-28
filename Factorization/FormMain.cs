@@ -9,7 +9,7 @@ namespace Factorization
     public partial class FormMain : Form
     {
         private readonly Stopwatch stopwatch = new Stopwatch();
-        private readonly FactorizationController controller = new FactorizationController();
+        private readonly PevnevFactorization controller = new PevnevFactorization();
 
         public FormMain() => InitializeComponent();
 

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
@@ -41,14 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigIntegerExtentions.cs" />
-    <Compile Include="FactorizationController.cs" />
-    <Compile Include="BaseFactorizationController.cs" />
+    <Compile Include="Enums\FactorizationAlgorithmType.cs" />
+    <Compile Include="Extensions\BigIntegerExtentions.cs" />
+    <Compile Include="PevnevFactorization.cs" />
+    <Compile Include="BaseFactorization.cs" />
     <Compile Include="FactorizationResult.cs" />
-    <Compile Include="GcdFactorizationController.cs" />
-    <Compile Include="IFactorizationController.cs" />
+    <Compile Include="GreatestCommonDivisorFactorization.cs" />
+    <Compile Include="Interfaces\IFactorizationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuadraticSieveFactorizationController.cs" />
+    <Compile Include="QuadraticSieveFactorization.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
