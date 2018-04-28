@@ -4,8 +4,8 @@ namespace Factorization.Core.Enums
 {
     public enum FactorizationAlgorithmType
     {
-        [Display(Description = "Pevnev")]
-        Pevnev = 1,
+        [Display(Description = "Quadratic inequality")]
+        QuadraticInequality = 1,
 
         [Display(Description = "Greatest common divisor ")]
         GreatestCommonDivisor = 2,

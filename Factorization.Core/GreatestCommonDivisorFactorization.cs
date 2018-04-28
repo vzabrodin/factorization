@@ -4,7 +4,7 @@ using Factorization.Core.Extensions;
 
 namespace Factorization.Core
 {
-    public class GreatestCommonDivisorFactorization : PevnevFactorization
+    public class GreatestCommonDivisorFactorization : QuadraticInequalityFactorization
     {
         protected override void GetPAndQ(BigInteger n, out BigInteger p, out BigInteger q)
         {

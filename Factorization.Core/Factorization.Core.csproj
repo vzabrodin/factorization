@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums\FactorizationAlgorithmType.cs" />
     <Compile Include="Extensions\BigIntegerExtentions.cs" />
-    <Compile Include="PevnevFactorization.cs" />
+    <Compile Include="QuadraticInequalityFactorization.cs" />
     <Compile Include="BaseFactorization.cs" />
     <Compile Include="FactorizationResult.cs" />
     <Compile Include="GreatestCommonDivisorFactorization.cs" />

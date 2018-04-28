@@ -6,12 +6,16 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:uiConverters="clr-namespace:Factorization.WPF.UIConverters"
              xmlns:enums="clr-namespace:Factorization.Core.Enums;assembly=Factorization.Core"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
 	<UserControl.Resources>
 		<uiConverters:EnumToCollectionConverter x:Key="FactorizationAlgorithmTypeEnumToCollectionConverter"
 		                                        EnumType="{x:Type enums:FactorizationAlgorithmType}"
 		                                        IsSortByValue="True"/>
+		<uiConverters:IntRangeToCollectionConverter x:Key="IntRangeToCollectionConverter"
+		                                            RangeStart="1"
+		                                            RangeEnd="{x:Static system:Environment.ProcessorCount}"/>
 	</UserControl.Resources>
 	<Grid Margin="8" IsSharedSizeScope="True">
 		<Grid.ColumnDefinitions>
@@ -23,41 +27,127 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
+		<!-- Number -->
 		<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
 		           Text="Number to factorize"/>
-		<ComboBox Margin="5" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding CachedNumbers}" Text="{Binding NumberString}"
+		<ComboBox Margin="8" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding CachedNumbers}" Text="{Binding NumberString}"
 		          IsEditable="True"/>
 
+		<!-- Algorithm type -->
 		<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
 		           Text="Algorithm"/>
-		<Grid Grid.Row="1" Grid.Column="1">
-			<ListBox Margin="8" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+		<ListBox Margin="8" Grid.Row="1" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
 			         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
 			         SelectedValue="{Binding SelectedAlgorithmType}">
-				<ListBox.ItemsPanel>
-					<ItemsPanelTemplate>
-						<WrapPanel IsItemsHost="True"/>
-					</ItemsPanelTemplate>
-				</ListBox.ItemsPanel>
-			</ListBox>
-		</Grid>
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel IsItemsHost="True"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
 
-		<Button Margin="8" Grid.Row="2" Grid.Column="1" Content="Factorize" Command="{Binding ProcessCommand}"/>
+		<!-- Number of processors -->
+		<TextBlock Margin="8" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
+		           Text="Number of processors"/>
+		<ListBox Margin="8" Grid.Row="2" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+		         ItemsSource="{Binding Converter={StaticResource IntRangeToCollectionConverter}}"
+		         SelectedValue="{Binding SelectedProcessorCount}">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel IsItemsHost="True"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
 
-		<Grid Grid.Row="3" Grid.Column="0" ColumnSpan="2">
+		<!-- Process Button -->
+		<Button Margin="8" Grid.Row="3" Grid.Column="1" Content="Factorize" Command="{Binding ProcessCommand}">
+			<Button.Style>
+				<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+					<Setter Property="Visibility" Value="Collapsed"/>
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsRunning}" Value="False">
+							<Setter Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Button.Style>
+		</Button>
+
+		<!-- Cancel Button -->
+		<Button Margin="8" Grid.Row="3" Grid.Column="1" Content="Cancel" Command="{Binding CancelCommand}">
+			<Button.Style>
+				<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+					<Setter Property="Visibility" Value="Collapsed"/>
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsRunning}" Value="True">
+							<Setter Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Button.Style>
+		</Button>
+
+		<!-- Result: Processing -->
+		<Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2">
+			<Grid.Style>
+				<Style TargetType="Grid">
+					<Setter Property="Visibility" Value="Visible"/>
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsRunning}" Value="False">
+							<Setter Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Grid.Style>
+
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Margin="8" Grid.Column="0" VerticalAlignment="Center" Text="Result"/>
-			<StackPanel Margin="8" Grid.Column="1" Orientation="Horizontal">
+			<TextBlock Margin="8" Grid.Column="1" VerticalAlignment="Center" Text="Running..."/>
+		</Grid>
+
+		<!-- Result: Ready -->
+		<Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2">
+			<Grid.Style>
+				<Style TargetType="Grid">
+					<Setter Property="Visibility" Value="Visible"/>
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding Result}" Value="{x:Null}">
+							<Setter Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Result.Success}" Value="False">
+							<Setter Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding IsRunning}" Value="True">
+							<Setter Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Grid.Style>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Text="Result"/>
+			<StackPanel Margin="8" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
 				<TextBlock VerticalAlignment="Center" Text="{Binding Result.P}"/>
-				<TextBlock VerticalAlignment="Center" Text="; "/>
 				<TextBlock VerticalAlignment="Center" Text="{Binding Result.Q}"/>
 			</StackPanel>
+
+			<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Time elapsed"/>
+			<TextBlock Margin="8" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeElapsed}"/>
 		</Grid>
 	</Grid>
 </UserControl>

@@ -9,29 +9,46 @@ namespace Factorization.Core
 {
     public abstract class BaseFactorization : IFactorizationController
     {
-        private readonly int[] coefficients =
-            {1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67};
+        private CancellationTokenSource cancellationTokenSource;
 
         public virtual FactorizationResult Process(BigInteger n, int threadCount = 1)
         {
+            Cancel(); // Cancel all tasks before start new
+
             if (threadCount <= 0)
                 throw new ArgumentException("Number of threads cannot be less or equal than 0");
 
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
+            cancellationTokenSource = new CancellationTokenSource();
 
             Task<FactorizationResult>[] tasks = Enumerable.Range(1, threadCount)
-                .Select(i => Task.Run(() => Process(n, i, threadCount, cancellationToken), cancellationToken))
+                .Select(i => Task.Run(() => Process(n, i, threadCount, cancellationTokenSource.Token),
+                    cancellationTokenSource.Token))
                 .ToArray();
 
             int taskIndex = Task.WaitAny(tasks);
-            cancellationTokenSource.Cancel(throwOnFirstException: true);
+            Cancel();
 
             return tasks[taskIndex].Result;
         }
 
         public virtual Task<FactorizationResult> ProcessAsync(BigInteger n, int threadCount = 1)
-            => Task.Run(() => Process(n, threadCount));
+        {
+            try
+            {
+                return Task.Run(() => Process(n, threadCount));
+            }
+            catch (OperationCanceledException)
+            {
+                return Task.FromResult(FactorizationResult.Failed);
+            }
+        }
+
+        public virtual void Cancel()
+        {
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            cancellationTokenSource = null;
+        }
 
         protected abstract FactorizationResult Process(BigInteger n, int threadNumber, int threadCount,
             CancellationToken cancellationToken);

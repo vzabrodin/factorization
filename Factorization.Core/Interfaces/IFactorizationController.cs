@@ -8,5 +8,7 @@ namespace Factorization.Core.Interfaces
         FactorizationResult Process(BigInteger n, int threadCount = 1);
 
         Task<FactorizationResult> ProcessAsync(BigInteger n, int threadCount = 1);
+
+        void Cancel();
     }
 }
