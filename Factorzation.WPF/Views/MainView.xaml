@@ -17,137 +17,156 @@
 		                                            RangeStart="1"
 		                                            RangeEnd="{x:Static system:Environment.ProcessorCount}"/>
 	</UserControl.Resources>
-	<Grid Margin="8" IsSharedSizeScope="True">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
+	<Grid>
+		<StackPanel Margin="8" Grid.IsSharedSizeScope="True">
+			<Grid>
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Setter Property="IsEnabled" Value="True"/>
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsRunning}" Value="True">
+								<Setter Property="IsEnabled" Value="False"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
 
-		<!-- Number -->
-		<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
-		           Text="Number to factorize"/>
-		<ComboBox Margin="8" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding CachedNumbers}" Text="{Binding NumberString}"
-		          IsEditable="True"/>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
 
-		<!-- Algorithm type -->
-		<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
-		           Text="Algorithm"/>
-		<ListBox Margin="8" Grid.Row="1" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
-			         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
-			         SelectedValue="{Binding SelectedAlgorithmType}">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel IsItemsHost="True"/>
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-		</ListBox>
+				<!-- Number -->
+				<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Number to factorize"/>
+				<ComboBox Margin="8" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding CachedNumbers}" Text="{Binding NumberString}"
+				          IsEditable="True"/>
 
-		<!-- Number of processors -->
-		<TextBlock Margin="8" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
-		           Text="Number of processors"/>
-		<ListBox Margin="8" Grid.Row="2" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				<!-- Algorithm type -->
+				<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Algorithm"/>
+				<ListBox Margin="8" Grid.Row="1" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
+				         SelectedValue="{Binding SelectedAlgorithmType}">
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel IsItemsHost="True"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+				</ListBox>
+
+				<!-- Number of processors -->
+				<TextBlock Margin="8" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Number of processors"/>
+				<ListBox Margin="8" Grid.Row="2" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
 		         ItemsSource="{Binding Converter={StaticResource IntRangeToCollectionConverter}}"
 		         SelectedValue="{Binding SelectedProcessorCount}">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel IsItemsHost="True"/>
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-		</ListBox>
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel IsItemsHost="True"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+				</ListBox>
+			</Grid>
 
-		<!-- Process Button -->
-		<Button Margin="8" Grid.Row="3" Grid.Column="1" Content="Factorize" Command="{Binding ProcessCommand}">
-			<Button.Style>
-				<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-					<Setter Property="Visibility" Value="Collapsed"/>
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsRunning}" Value="False">
-							<Setter Property="Visibility" Value="Visible"/>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Button.Style>
-		</Button>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
 
-		<!-- Cancel Button -->
-		<Button Margin="8" Grid.Row="3" Grid.Column="1" Content="Cancel" Command="{Binding CancelCommand}">
-			<Button.Style>
-				<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-					<Setter Property="Visibility" Value="Collapsed"/>
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsRunning}" Value="True">
-							<Setter Property="Visibility" Value="Visible"/>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Button.Style>
-		</Button>
-
-		<!-- Result: Processing -->
-		<Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2">
-			<Grid.Style>
-				<Style TargetType="Grid">
-					<Setter Property="Visibility" Value="Visible"/>
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsRunning}" Value="False">
+				<!-- Process Button -->
+				<Button Grid.Column="1" Margin="8" Content="Factorize" Command="{Binding ProcessCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
 							<Setter Property="Visibility" Value="Collapsed"/>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Grid.Style>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding IsRunning}" Value="False">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-
-			<TextBlock Margin="8" Grid.Column="0" VerticalAlignment="Center" Text="Result"/>
-			<TextBlock Margin="8" Grid.Column="1" VerticalAlignment="Center" Text="Running..."/>
-		</Grid>
-
-		<!-- Result: Ready -->
-		<Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2">
-			<Grid.Style>
-				<Style TargetType="Grid">
-					<Setter Property="Visibility" Value="Visible"/>
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding Result}" Value="{x:Null}">
+				<!-- Cancel Button -->
+				<Button Grid.Column="1" Margin="8" Content="Cancel" Command="{Binding CancelCommand}">
+					<Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
 							<Setter Property="Visibility" Value="Collapsed"/>
-						</DataTrigger>
-						<DataTrigger Binding="{Binding Result.Success}" Value="False">
-							<Setter Property="Visibility" Value="Collapsed"/>
-						</DataTrigger>
-						<DataTrigger Binding="{Binding IsRunning}" Value="True">
-							<Setter Property="Visibility" Value="Collapsed"/>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Grid.Style>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding IsRunning}" Value="True">
+									<Setter Property="Visibility" Value="Visible"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Button.Style>
+				</Button>
+			</Grid>
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
+			<!-- Result: Processing -->
+			<Grid>
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Setter Property="Visibility" Value="Visible"/>
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsRunning}" Value="False">
+								<Setter Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
 
-			<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Text="Result"/>
-			<StackPanel Margin="8" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-				<TextBlock VerticalAlignment="Center" Text="{Binding Result.P}"/>
-				<TextBlock VerticalAlignment="Center" Text="{Binding Result.Q}"/>
-			</StackPanel>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
 
-			<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Time elapsed"/>
-			<TextBlock Margin="8" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeElapsed}"/>
-		</Grid>
+				<TextBlock Margin="8" Grid.Column="0" VerticalAlignment="Center" Text="Result"/>
+				<TextBlock Margin="8" Grid.Column="1" VerticalAlignment="Center" Text="Running..."/>
+			</Grid>
+
+			<!-- Result: Ready -->
+			<Grid>
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Setter Property="Visibility" Value="Visible"/>
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding Result}" Value="{x:Null}">
+								<Setter Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+							<DataTrigger Binding="{Binding Result.Success}" Value="False">
+								<Setter Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+							<DataTrigger Binding="{Binding IsRunning}" Value="True">
+								<Setter Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyNameGroup"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<TextBlock Margin="8" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Text="Result"/>
+				<StackPanel Margin="8" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+					<TextBlock VerticalAlignment="Center" Text="{Binding Result.P}"/>
+					<TextBlock VerticalAlignment="Center" Text="{Binding Result.Q}"/>
+				</StackPanel>
+
+				<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Time elapsed"/>
+				<TextBlock Margin="8" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeElapsed}"/>
+			</Grid>
+		</StackPanel>
 	</Grid>
 </UserControl>

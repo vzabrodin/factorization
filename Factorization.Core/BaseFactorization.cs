@@ -21,8 +21,7 @@ namespace Factorization.Core
             cancellationTokenSource = new CancellationTokenSource();
 
             Task<FactorizationResult>[] tasks = Enumerable.Range(1, threadCount)
-                .Select(i => Task.Run(() => Process(n, i, threadCount, cancellationTokenSource.Token),
-                    cancellationTokenSource.Token))
+                .Select(i => Task.Run(() => Process(n, i, threadCount, cancellationTokenSource.Token)))
                 .ToArray();
 
             int taskIndex = Task.WaitAny(tasks);
