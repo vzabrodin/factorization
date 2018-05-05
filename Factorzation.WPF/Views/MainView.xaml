@@ -19,6 +19,18 @@
 	</UserControl.Resources>
 	<Grid>
 		<StackPanel Margin="8" Grid.IsSharedSizeScope="True">
+			<ProgressBar IsIndeterminate="True">
+				<ProgressBar.Style>
+					<Style TargetType="ProgressBar" BasedOn="{StaticResource {x:Type ProgressBar}}">
+						<Setter Property="Visibility" Value="Hidden"/>
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsRunning}" Value="True">
+								<Setter Property="Visibility" Value="Visible"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</ProgressBar.Style>
+			</ProgressBar>
 			<Grid>
 				<Grid.Style>
 					<Style TargetType="Grid">
@@ -50,27 +62,17 @@
 
 				<!-- Algorithm type -->
 				<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Algorithm"/>
-				<ListBox Margin="8" Grid.Row="1" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				<ListBox Margin="8" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignToolToggleFlatListBox}"
+				         DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
 				         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
-				         SelectedValue="{Binding SelectedAlgorithmType}">
-					<ListBox.ItemsPanel>
-						<ItemsPanelTemplate>
-							<WrapPanel IsItemsHost="True"/>
-						</ItemsPanelTemplate>
-					</ListBox.ItemsPanel>
-				</ListBox>
+				         SelectedValue="{Binding SelectedAlgorithmType}"/>
 
 				<!-- Number of processors -->
 				<TextBlock Margin="8" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Number of processors"/>
-				<ListBox Margin="8" Grid.Row="2" Grid.Column="1" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
-		         ItemsSource="{Binding Converter={StaticResource IntRangeToCollectionConverter}}"
-		         SelectedValue="{Binding SelectedProcessorCount}">
-					<ListBox.ItemsPanel>
-						<ItemsPanelTemplate>
-							<WrapPanel IsItemsHost="True"/>
-						</ItemsPanelTemplate>
-					</ListBox.ItemsPanel>
-				</ListBox>
+				<ListBox Margin="8" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignToolToggleFlatListBox}"
+				         DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				         ItemsSource="{Binding Converter={StaticResource IntRangeToCollectionConverter}}"
+				         SelectedValue="{Binding SelectedProcessorCount}"/>
 			</Grid>
 
 			<Grid>
