@@ -19,20 +19,20 @@ namespace Factorization.WPF
 
         public DelegateCommand<Window> MinimizeWindowCommand
         {
-            get => minimizeWindowCommand;
-            private set => SetProperty(ref minimizeWindowCommand, value);
+            get { return minimizeWindowCommand; }
+            private set { SetProperty(ref minimizeWindowCommand, value); }
         }
 
         public DelegateCommand<Window> MaximizeWindowCommand
         {
-            get => maximizeWindowCommand;
-            private set => SetProperty(ref maximizeWindowCommand, value);
+            get { return maximizeWindowCommand; }
+            private set { SetProperty(ref maximizeWindowCommand, value); }
         }
 
         public DelegateCommand<Window> CloseWindowCommand
         {
-            get => closeWindowCommand;
-            private set => SetProperty(ref closeWindowCommand, value);
+            get { return closeWindowCommand; }
+            private set { SetProperty(ref closeWindowCommand, value); }
         }
 
         public void OnShellLoaded()

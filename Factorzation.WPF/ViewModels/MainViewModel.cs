@@ -40,19 +40,19 @@ namespace Factorization.WPF.ViewModels
 
         public DelegateCommand ProcessCommand
         {
-            get => processCommand;
-            set => SetProperty(ref processCommand, value);
+            get { return processCommand; }
+            set { SetProperty(ref processCommand, value); }
         }
 
         public DelegateCommand CancelCommand
         {
-            get => cancelCommand;
-            set => SetProperty(ref cancelCommand, value);
+            get { return cancelCommand; }
+            set { SetProperty(ref cancelCommand, value); }
         }
 
         public FactorizationAlgorithmType? SelectedAlgorithmType
         {
-            get => algorithmType;
+            get { return algorithmType; }
             set
             {
                 SetProperty(ref algorithmType, value);
@@ -77,13 +77,13 @@ namespace Factorization.WPF.ViewModels
 
         public ObservableCollection<string> CachedNumbers
         {
-            get => cachedNumbers;
-            set => SetProperty(ref cachedNumbers, value);
+            get { return cachedNumbers; }
+            set { SetProperty(ref cachedNumbers, value); }
         }
 
         public string NumberString
         {
-            get => numberString;
+            get { return numberString; }
             set
             {
                 SetProperty(ref numberString, value);
@@ -93,7 +93,7 @@ namespace Factorization.WPF.ViewModels
 
         public int? SelectedProcessorCount
         {
-            get => selectesProcessorCount;
+            get { return selectesProcessorCount; }
             set
             {
                 SetProperty(ref selectesProcessorCount, value);
@@ -103,20 +103,20 @@ namespace Factorization.WPF.ViewModels
 
         public bool IsRunning
         {
-            get => isRunning;
-            private set => SetProperty(ref isRunning, value);
+            get { return isRunning; }
+            private set { SetProperty(ref isRunning, value); }
         }
 
         public FactorizationResult Result
         {
-            get => result;
-            set => SetProperty(ref result, value);
+            get { return result; }
+            set { SetProperty(ref result, value); }
         }
 
         public TimeSpan TimeElapsed
         {
-            get => timeElapsed;
-            set => SetProperty(ref timeElapsed, value);
+            get { return timeElapsed; }
+            set { SetProperty(ref timeElapsed, value); }
         }
 
         private bool OnCanProcessCommand() => !String.IsNullOrWhiteSpace(NumberString)
