@@ -12,13 +12,11 @@ namespace Factorization.ConsoleApplication
 
         public static void Main()
         {
-            //BigInteger number = BigInteger.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-            //BigInteger number = BigInteger.Parse("916103") * BigInteger.Parse("999217");
-            BigInteger number = BigInteger.Parse("111111111111111111111111111111");
+            BigInteger number = BigInteger.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            FactorizationResult result = Controller.Process(number);
+            FactorizationResult result = Controller.Process(number, Environment.ProcessorCount);
 
             stopwatch.Stop();
 

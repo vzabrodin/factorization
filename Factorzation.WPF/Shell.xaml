@@ -7,68 +7,11 @@
         xmlns:wpf="clr-namespace:Factorization.WPF"
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Template="{StaticResource MaterialWindowTemplate}"
+        Style="{StaticResource MaterialWindowStyle}"
         Width="800" Height="500" MinWidth="800" MinHeight="500"
         Title="Factorization">
-	<WindowChrome.WindowChrome>
-		<WindowChrome CaptionHeight="{Binding ElementName=TitleBar, Path=ActualHeight}" ResizeBorderThickness="10" UseAeroCaptionButtons="False"/>
-	</WindowChrome.WindowChrome>
 	<Grid>
-		<DockPanel LastChildFill="True">
-			<DockPanel.Style>
-				<Style TargetType="DockPanel">
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding WindowState, ElementName=ShellWindow}" Value="Maximized">
-							<Setter Property="Margin" Value="7"/>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</DockPanel.Style>
-
-			<!-- Region TitleBar -->
-			<Border x:Name="TitleBar" DockPanel.Dock="Top">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-
-					<TextBlock Grid.Column="0" Text="{Binding Title, ElementName=ShellWindow}" Margin="16 0 0 0" VerticalAlignment="Center"/>
-
-					<StackPanel Grid.Column="1" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
-						<Button x:Name="MinimizeButton" Margin="4" FontFamily="Marlett" Content="0" Focusable="False"
-						        Style="{DynamicResource MaterialDesignFloatingActionButton}" Width="32" Height="32"
-						        Command="{Binding MinimizeWindowCommand}" CommandParameter="{Binding ElementName=ShellWindow}"/>
-						<Button x:Name="MaximizeButton" Margin="4" FontFamily="Marlett" Focusable="False"
-						        Style="{DynamicResource MaterialDesignFloatingActionButton}" Width="32" Height="32"
-						        Command="{Binding MaximizeWindowCommand}" CommandParameter="{Binding ElementName=ShellWindow}">
-							<TextBlock>
-								<TextBlock.Style>
-									<Style TargetType="TextBlock">
-										<Setter Property="Text" Value="1"/>
-										<Style.Triggers>
-											<DataTrigger Binding="{Binding WindowState, ElementName=ShellWindow}" Value="Maximized">
-												<Setter Property="Text" Value="2"/>
-											</DataTrigger>
-										</Style.Triggers>
-									</Style>
-								</TextBlock.Style>
-							</TextBlock>
-						</Button>
-						<Button x:Name="CloseButton" Margin="4" FontFamily="Segoe UI Symbol" Content="" Focusable="False"
-						        Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" Width="32" Height="32"
-						        Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=ShellWindow}"/>
-					</StackPanel>
-				</Grid>
-			</Border>
-			<!-- Region TitleBar -->
-
-			<Border>
-				<ContentControl x:Name="MainViewControl" prism:RegionManager.RegionName="{x:Static wpf:ViewNames.MainView}"/>
-			</Border>
-		</DockPanel>
+		<ContentControl x:Name="MainViewControl" prism:RegionManager.RegionName="{x:Static wpf:ViewNames.MainView}"/>
 	</Grid>
 </Window>

@@ -28,7 +28,7 @@ namespace Factorization.Core
 
                 p--;
                 q++;
-            } while (d == 1);
+            } while (d == 1 || !cancellationToken.IsCancellationRequested);
 
             return new FactorizationResult(d, n / d);
         }
