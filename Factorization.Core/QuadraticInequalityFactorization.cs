@@ -12,7 +12,8 @@ namespace Factorization.Core
         protected override FactorizationResult Process(BigInteger n, int threadNumber, int threadCount,
             CancellationToken cancellationToken)
         {
-            GetPAndQ(n, out BigInteger p, out BigInteger q);
+            BigInteger p, q;
+            GetPAndQ(n, out p, out q);
             return Process(n, p, q, coefficients[threadNumber - 1], cancellationToken);
         }
 
@@ -43,9 +44,10 @@ namespace Factorization.Core
 
                 if (delta < 0)
                 {
+                    BigInteger x1, x2;
                     if (BigIntegerExtentions.TrySolveQuadraticEquation(coefficient, q - coefficient * p, delta,
-                            out BigInteger x1, out BigInteger x2)
-                        && (x1 > 0 || x2 > 0))
+                            out x1, out x2)
+                     && (x1 > 0 || x2 > 0))
                     {
                         BigInteger i = x1 > 0 ? x1 : x2;
                         q += i;
