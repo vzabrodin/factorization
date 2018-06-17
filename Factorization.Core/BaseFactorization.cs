@@ -21,7 +21,7 @@ namespace Factorization.Core
             cancellationTokenSource = new CancellationTokenSource();
 
             Task<FactorizationResult>[] tasks = Enumerable.Range(1, threadCount)
-                .Select(i => Task.Run(() => Process(n, i, threadCount, cancellationTokenSource.Token)))
+                .Select(i => Task.Run(() => ProcessInternal(n, i, threadCount, cancellationTokenSource.Token)))
                 .ToArray();
 
             int taskIndex = Task.WaitAny(tasks);
@@ -51,5 +51,20 @@ namespace Factorization.Core
 
         protected abstract FactorizationResult Process(BigInteger n, int threadNumber, int threadCount,
             CancellationToken cancellationToken);
+
+        private FactorizationResult ProcessInternal(BigInteger n, int threadNumber, int threadCount,
+            CancellationToken cancellationToken)
+        {
+            if (n == 1)
+                return new FactorizationResult(1, 1);
+
+            if (n == 2)
+                return new FactorizationResult(1, 2);
+
+            if (n == 3)
+                return new FactorizationResult(1, 3);
+
+            return Process(n, threadNumber, threadCount, cancellationToken);
+        }
     }
 }

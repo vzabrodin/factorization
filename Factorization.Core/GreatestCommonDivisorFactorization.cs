@@ -28,7 +28,7 @@ namespace Factorization.Core
 
                 p--;
                 q++;
-            } while (d == 1 || !cancellationToken.IsCancellationRequested);
+            } while (d == 1 && !cancellationToken.IsCancellationRequested);
 
             return cancellationToken.IsCancellationRequested
                 ? FactorizationResult.Failed
