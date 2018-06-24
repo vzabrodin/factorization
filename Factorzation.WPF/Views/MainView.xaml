@@ -7,6 +7,7 @@
              xmlns:uiConverters="clr-namespace:Factorization.WPF.UIConverters"
              xmlns:enums="clr-namespace:Factorization.Core.Enums;assembly=Factorization.Core"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
 	<UserControl.Resources>
@@ -63,14 +64,14 @@
 				<!-- Algorithm type -->
 				<TextBlock Margin="8" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Algorithm"/>
 				<ListBox Margin="8" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignToolToggleFlatListBox}"
-				         DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				         materialDesign:ListBoxAssist.IsToggle="False" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
 				         ItemsSource="{Binding Converter={StaticResource FactorizationAlgorithmTypeEnumToCollectionConverter}}"
 				         SelectedValue="{Binding SelectedAlgorithmType}"/>
 
 				<!-- Number of processors -->
 				<TextBlock Margin="8" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Number of processors"/>
 				<ListBox Margin="8" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignToolToggleFlatListBox}"
-				         DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
+				         materialDesign:ListBoxAssist.IsToggle="False" DisplayMemberPath="DisplayText" SelectedValuePath="Value" SelectionMode="Single"
 				         ItemsSource="{Binding Converter={StaticResource IntRangeToCollectionConverter}}"
 				         SelectedValue="{Binding SelectedProcessorCount}"/>
 			</Grid>
