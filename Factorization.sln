@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.Core", "Facto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.WPF", "Factorzation.WPF\Factorization.WPF.csproj", "{EF0648F7-D968-4453-B895-F6699C1A0CE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Factorization.UML", "Factorization.UML", "{4FCF0CA9-C229-4CEF-8487-C93A3C298674}"
+	ProjectSection(SolutionItems) = preProject
+		Factorization.UML\Factorization.ncp = Factorization.UML\Factorization.ncp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

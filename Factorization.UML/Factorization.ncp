@@ -1,0 +1,397 @@
+<Project>
+  <Name>Factorization</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Factorization.Core</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IFactorizationController</Name>
+        <Access>Public</Access>
+        <Location left="1309" top="625" />
+        <Size width="407" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">FactorizationResult Process(BigInteger n, Int32 threadCount = 1)</Member>
+        <Member type="Method">Task&lt;FactorizationResult&gt; ProcessAsync(BigInteger n, Int32 threadCount = 1)</Member>
+        <Member type="Method">Void Cancel()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuadraticInequalityFactorization</Name>
+        <Access>Public</Access>
+        <Location left="717" top="926" />
+        <Size width="660" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Int32[] coefficients</Member>
+        <Member type="Constructor">public QuadraticInequalityFactorization()</Member>
+        <Member type="Method">protected virtual FactorizationResult Process(BigInteger n, Int32 threadNumber, Int32 threadCount, CancellationToken cancellationToken)</Member>
+        <Member type="Method">protected virtual Void GetPAndQ(BigInteger n, out BigInteger p, out BigInteger q)</Member>
+        <Member type="Method">protected virtual FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, Int32 coefficient, CancellationToken cancellationToken)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BaseFactorization</Name>
+        <Access>Public</Access>
+        <Location left="1431" top="926" />
+        <Size width="677" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private CancellationTokenSource cancellationTokenSource</Member>
+        <Member type="Constructor">protected BaseFactorization()</Member>
+        <Member type="Method">public virtual FactorizationResult Process(BigInteger n, Int32 threadCount = 1)</Member>
+        <Member type="Method">public virtual Task&lt;FactorizationResult&gt; ProcessAsync(BigInteger n, Int32 threadCount = 1)</Member>
+        <Member type="Method">public virtual Void Cancel()</Member>
+        <Member type="Method">protected abstract FactorizationResult Process(BigInteger n, Int32 threadNumber, Int32 threadCount, CancellationToken cancellationToken)</Member>
+        <Member type="Method">private FactorizationResult ProcessInternal(BigInteger n, Int32 threadNumber, Int32 threadCount, CancellationToken cancellationToken)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FactorizationResult</Name>
+        <Access>Public</Access>
+        <Location left="266" top="10" />
+        <Size width="263" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public static FactorizationResult Failed</Member>
+        <Member type="Property">public BigInteger P { get; }</Member>
+        <Member type="Property">public BigInteger Q { get; }</Member>
+        <Member type="Property">public Boolean Success { get; }</Member>
+        <Member type="Constructor">private FactorizationResult()</Member>
+        <Member type="Constructor">public FactorizationResult(BigInteger p, BigInteger q)</Member>
+        <Member type="Constructor">static FactorizationResult()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GreatestCommonDivisorFactorization</Name>
+        <Access>Public</Access>
+        <Location left="10" top="926" />
+        <Size width="660" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public GreatestCommonDivisorFactorization()</Member>
+        <Member type="Method">protected virtual Void GetPAndQ(BigInteger n, out BigInteger p, out BigInteger q)</Member>
+        <Member type="Method">protected virtual FactorizationResult Process(BigInteger n, BigInteger p, BigInteger q, Int32 coefficient, CancellationToken cancellationToken)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuadraticSieveFactorization</Name>
+        <Access>Public</Access>
+        <Location left="2149" top="926" />
+        <Size width="639" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public QuadraticSieveFactorization()</Member>
+        <Member type="Method">protected virtual FactorizationResult Process(BigInteger n, Int32 threadNumber, Int32 threadCount, CancellationToken cancellationToken)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BigIntegerExtentions</Name>
+        <Access>Public</Access>
+        <Location left="608" top="10" />
+        <Size width="612" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static BigInteger Sqtr(BigInteger number)</Member>
+        <Member type="Method">public static Boolean TrySolveQuadraticEquation(BigInteger a, BigInteger b, BigInteger c, out BigInteger x1, out BigInteger x2)</Member>
+        <Member type="Method">public static BigInteger GreatestCommonDivisor(BigInteger a, BigInteger b)</Member>
+        <Member type="Method">public static Void Exchange(ref BigInteger a, ref BigInteger b)</Member>
+        <Member type="Method">public static Boolean IsFullSquare(BigInteger number)</Member>
+        <Member type="Method">private static BigInteger GcdInternal(BigInteger a, BigInteger b)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>FactorizationAlgorithmType</Name>
+        <Access>Public</Access>
+        <Location left="12" top="12" />
+        <Size width="189" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>QuadraticInequality = 1</Value>
+        <Value>GreatestCommonDivisor = 2</Value>
+        <Value>QuadraticSieve = 3</Value>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="1" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="4" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="5" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="1" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1058</X>
+          <Y>901</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1534</X>
+          <Y>831</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1534</X>
+          <Y>807</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="2" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1816</X>
+          <Y>901</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1534</X>
+          <Y>762</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="4" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1534</X>
+          <Y>762</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1534</X>
+          <Y>762</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="3" second="3">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>Failed</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Factorization.WPF</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>ViewNames</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="171" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public const String MainView = MainView</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>App</Name>
+        <Access>Public</Access>
+        <Location left="488" top="10" />
+        <Size width="216" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Bootstrapper bootstrapper</Member>
+        <Member type="Field">private Boolean _contentLoaded</Member>
+        <Member type="Constructor">public App()</Member>
+        <Member type="Method">protected virtual Void OnStartup(StartupEventArgs e)</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Member type="Method">public static Void Main()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Bootstrapper</Name>
+        <Access>Public</Access>
+        <Location left="207" top="10" />
+        <Size width="194" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Bootstrapper()</Member>
+        <Member type="Method">protected virtual Void InitializeShell()</Member>
+        <Member type="Method">protected virtual DependencyObject CreateShell()</Member>
+        <Member type="Method">protected virtual Void ConfigureContainer()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ShellViewModel</Name>
+        <Access>Public</Access>
+        <Location left="10" top="334" />
+        <Size width="380" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly IRegionManager regionManager</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; minimizeWindowCommand</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; maximizeWindowCommand</Member>
+        <Member type="Field">private DelegateCommand&lt;Window&gt; closeWindowCommand</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; MinimizeWindowCommand { get; private set; }</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; MaximizeWindowCommand { get; private set; }</Member>
+        <Member type="Property">public DelegateCommand&lt;Window&gt; CloseWindowCommand { get; private set; }</Member>
+        <Member type="Constructor">public ShellViewModel(IRegionManager regionManager)</Member>
+        <Member type="Method">public Void OnShellLoaded()</Member>
+        <Member type="Method">private Void MinimizeWindow(Window window)</Member>
+        <Member type="Method">private Void MaximizeWindow(Window window)</Member>
+        <Member type="Method">private Void CloseWindow(Window window)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Shell</Name>
+        <Access>Public</Access>
+        <Location left="863" top="10" />
+        <Size width="516" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal Shell ShellWindow</Member>
+        <Member type="Field">internal ContentControl MainViewControl</Member>
+        <Member type="Constructor">public Shell()</Member>
+        <Member type="Method">private Void OnShellLoaded(Object sender, RoutedEventArgs routedEventArgs)</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainView</Name>
+        <Access>Public</Access>
+        <Location left="863" top="275" />
+        <Size width="516" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Boolean _contentLoaded</Member>
+        <Member type="Constructor">public MainView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainViewModel</Name>
+        <Access>Public</Access>
+        <Location left="417" top="334" />
+        <Size width="350" height="485" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IFactorizationController factorizationController</Member>
+        <Member type="Field">private Stopwatch stopwatch</Member>
+        <Member type="Field">private DelegateCommand processCommand</Member>
+        <Member type="Field">private DelegateCommand cancelCommand</Member>
+        <Member type="Field">private ObservableCollection&lt;String&gt; cachedNumbers</Member>
+        <Member type="Field">private String numberString</Member>
+        <Member type="Field">private FactorizationAlgorithmType? algorithmType</Member>
+        <Member type="Field">private Int32? selectesProcessorCount</Member>
+        <Member type="Field">private FactorizationResult result</Member>
+        <Member type="Field">private Boolean isRunning</Member>
+        <Member type="Field">private TimeSpan timeElapsed</Member>
+        <Member type="Property">public DelegateCommand ProcessCommand { get; set; }</Member>
+        <Member type="Property">public DelegateCommand CancelCommand { get; set; }</Member>
+        <Member type="Property">public FactorizationAlgorithmType? SelectedAlgorithmType { get; set; }</Member>
+        <Member type="Property">public ObservableCollection&lt;String&gt; CachedNumbers { get; set; }</Member>
+        <Member type="Property">public String NumberString { get; set; }</Member>
+        <Member type="Property">public Int32? SelectedProcessorCount { get; set; }</Member>
+        <Member type="Property">public Boolean IsRunning { get; private set; }</Member>
+        <Member type="Property">public FactorizationResult Result { get; set; }</Member>
+        <Member type="Property">public TimeSpan TimeElapsed { get; set; }</Member>
+        <Member type="Constructor">public MainViewModel()</Member>
+        <Member type="Method">private Boolean OnCanProcessCommand()</Member>
+        <Member type="Method">private Void OnProcessCommand()</Member>
+        <Member type="Method">private Void OnCancelCommand()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CollectionViewModel&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="2189" top="125" />
+        <Size width="307" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public T Value { get; set; }</Member>
+        <Member type="Property">public String DisplayText { get; set; }</Member>
+        <Member type="Constructor">public CollectionViewModel()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EnumToCollectionConverter</Name>
+        <Access>Public</Access>
+        <Location left="2541" top="10" />
+        <Size width="492" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Type EnumType { get; set; }</Member>
+        <Member type="Property">public Boolean IsSortByValue { get; set; }</Member>
+        <Member type="Constructor">public EnumToCollectionConverter()</Member>
+        <Member type="Method">public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)</Member>
+        <Member type="Method">public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>IntRangeToCollectionConverter</Name>
+        <Access>Public</Access>
+        <Location left="2541" top="202" />
+        <Size width="492" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 RangeStart { get; set; }</Member>
+        <Member type="Property">public Int32 RangeEnd { get; set; }</Member>
+        <Member type="Constructor">public IntRangeToCollectionConverter()</Member>
+        <Member type="Method">public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)</Member>
+        <Member type="Method">public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CollectionExtensions</Name>
+        <Access>Public</Access>
+        <Location left="2189" top="10" />
+        <Size width="307" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static Void AddIfNotExists(ICollection&lt;T&gt; collection, T item)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EnumExtensions</Name>
+        <Access>Public</Access>
+        <Location left="2189" top="271" />
+        <Size width="307" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static String GetDescription(TEnum value)</Member>
+        <Member type="Method">public static String GetEnumDescription(Enum value)</Member>
+        <Member type="Method">public static IEnumerable&lt;T&gt; GetFlags(T args)</Member>
+        <Member type="Method">private static T GetAttribute(TEnum value)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TextBoxExtensions</Name>
+        <Access>Public</Access>
+        <Location left="1599" top="10" />
+        <Size width="551" height="366" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private DependencyPropertyKey MaskExpressionPropertyKey</Member>
+        <Member type="Field">public DependencyProperty MaskProperty</Member>
+        <Member type="Field">public DependencyProperty MaskExpressionProperty</Member>
+        <Member type="Constructor">static TextBoxExtensions()</Member>
+        <Member type="Method">public static String GetMask(TextBox textBox)</Member>
+        <Member type="Method">public static Void SetMask(TextBox textBox, String mask)</Member>
+        <Member type="Method">public static Regex GetMaskExpression(TextBox textBox)</Member>
+        <Member type="Method">private static Void SetMaskExpression(TextBox textBox, Regex regex)</Member>
+        <Member type="Method">private static Void OnMaskChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)</Member>
+        <Member type="Method">private static Void NoCutting(Object sender, ExecutedRoutedEventArgs e)</Member>
+        <Member type="Method">private static Void NoDragCopy(Object sender, DataObjectCopyingEventArgs e)</Member>
+        <Member type="Method">private static Void textBox_PreviewTextInput(Object sender, TextCompositionEventArgs e)</Member>
+        <Member type="Method">private static Void textBox_PreviewKeyDown(Object sender, KeyEventArgs e)</Member>
+        <Member type="Method">private static Void Pasting(Object sender, DataObjectPastingEventArgs e)</Member>
+        <Member type="Method">private static String GetProposedTextBackspace(TextBox textBox)</Member>
+        <Member type="Method">private static String GetProposedText(TextBox textBox, String newText)</Member>
+        <Member type="Method">private static String GetTextWithSelectionRemoved(TextBox textBox)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="1" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>bootstrapper</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="4" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>ShellWindow</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
