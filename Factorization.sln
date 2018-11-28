@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.ConsoleApplic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.Core", "Factorization.Core\Factorization.Core.csproj", "{77C9B47C-1588-4E48-9C77-40C0821456E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.WPF", "Factorzation.WPF\Factorization.WPF.csproj", "{EF0648F7-D968-4453-B895-F6699C1A0CE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorization.WPF", "Factorization.WPF\Factorization.WPF.csproj", "{EF0648F7-D968-4453-B895-F6699C1A0CE0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Factorization.UML", "Factorization.UML", "{4FCF0CA9-C229-4CEF-8487-C93A3C298674}"
 	ProjectSection(SolutionItems) = preProject
