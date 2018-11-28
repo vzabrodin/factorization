@@ -47,7 +47,7 @@
 
 								<StackPanel Grid.Column="2" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
 									<Button x:Name="MinimizeButton"
-											Style="{DynamicResource MaterialDesignFloatingActionButton}" 
+											Style="{DynamicResource MaterialDesignToolForegroundButton}" 
 											Margin="4"
 											Width="32"
 											Height="32"
@@ -58,7 +58,7 @@
 											CommandParameter="{Binding ElementName=ShellWindow}"/>
 
 									<Button x:Name="MaximizeButton"
-											Style="{DynamicResource MaterialDesignFloatingActionButton}" 
+											Style="{DynamicResource MaterialDesignToolForegroundButton}" 
 											Margin="4"
 											Width="32"
 											Height="32"
@@ -82,7 +82,7 @@
 									</Button>
 
 									<Button x:Name="CloseButton"
-									        Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" 
+									        Style="{DynamicResource MaterialDesignToolForegroundButton}" 
 											Margin="4"
 											Width="32"
 											Height="32"
